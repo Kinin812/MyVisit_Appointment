@@ -15,8 +15,8 @@ DOC_LINK_ID = {
     'Maavar': '36aac445-7d4d-4088-baa2-43658d2ca803',
 }
 DOC_CHOOZE = DOC_LINK_ID['Zeut']
-MY_TEL = '0553161687'
-MY_TZ = '347812679'
+MY_TEL = '0559578701'
+MY_TZ = '347812687'
 MOUNTH = 'апр'
 MAX_DATA = 20
 MAIN_URL = 'https://myvisit.com/#!/home/signin/'
@@ -28,8 +28,8 @@ Cities = [
     {'Tayba': 'https://myvisit.com/#!/home/service/2749'},
     # {'Kphar-Saba': 'https://myvisit.com/#!/home/service/2110'},
     {'Gertsliya': 'https://myvisit.com/#!/home/service/2245'},
-    # {'Petakh-Tikva': 'https://myvisit.com/#!/home/service/2113'},
-    # {'Bney-Brak': 'https://myvisit.com/#!/home/service/2163'},
+    {'Petakh-Tikva': 'https://myvisit.com/#!/home/service/2113'},
+    {'Bney-Brak': 'https://myvisit.com/#!/home/service/2163'},
 #    {'Rosh-Ha-Ain': 'https://myvisit.com/#!/home/service/2167'},
 #   {'RAmat-Gan-Givataim': 'https://myvisit.com/#!/home/service/2097'},
 #     {'Tel-Aviv': 'https://myvisit.com/#!/home/service/2099'},
@@ -44,18 +44,17 @@ def delay():
     sleep(randint(5, 7))
 
 
-def find_time(driver):
+def find_time(driver, date):
     try:
         delay()
         visit_time = driver.find_elements(By.CSS_SELECTOR, 'div.picker-scroll-container')[2] \
             .find_element(By.CSS_SELECTOR, 'li.picker-scroll-item').find_element(By.CSS_SELECTOR, 'button.TimeButton')
-        temp = visit_time.text
         visit_time.click()
         delay()
         slot = driver.find_element(By.CSS_SELECTOR, 'button.createApp')
         slot.click()
         delay()
-        return temp
+        return visit_time.text
     except Exception:
         return 'Время не найдено'
 
@@ -70,7 +69,7 @@ def find_date(driver):
         for elem in date_source[1:3]:
             date_clean.append(elem.text)
         if date_clean[1] == MOUNTH and int(date_clean[0]) <= MAX_DATA:
-            fff = find_time(driver)
+            fff = find_time(driver, date_clean[0])
             date_clean.append(fff)
             return date_clean
         return 'Нет подходящей даты'
