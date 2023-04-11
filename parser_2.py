@@ -54,7 +54,7 @@ def find_time(driver):
         temp = visit_time.text
         visit_time.click()
         delay()
-        slot = driver.find_element(By.CSS_SELECTOR, 'button.createApp')
+        slot = driver.find_element(By.CLASS_NAME, 'createApp')
         slot.click()
         delay()
         return temp
