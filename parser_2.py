@@ -9,6 +9,7 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
+from selenium_stealth import stealth
 
 DOC_LINK_ID = {
     'Zeut': '6f2ffb58-b985-436c-a3f7-f5913299fa30',
@@ -17,26 +18,27 @@ DOC_LINK_ID = {
 DOC_CHOOZE = DOC_LINK_ID['Zeut']
 MY_TEL = '0553161687'
 MY_TZ = '347812679'
-MOUNTH = 'апр'
-MAX_DATA = 20
+MOUNTH = 'Sep'
+MAX_DATA = 30
 MAIN_URL = 'https://myvisit.com/#!/home/signin/'
 TIMEOUT = 300
 
 Cities = [
+    {'Test': 'https://www.myvisit.com/#!/home/service/2247'},
     # {'Hadera': 'https://myvisit.com/#!/home/service/2144'},
     # {'Netanya': 'https://myvisit.com/#!/home/service/2146'},
     # {'Tayba': 'https://myvisit.com/#!/home/service/2749'},
     # # {'Kphar-Saba': 'https://myvisit.com/#!/home/service/2110'},
     # {'Gertsliya': 'https://myvisit.com/#!/home/service/2245'},
-    {'Petakh-Tikva': 'https://myvisit.com/#!/home/service/2113'},
-    {'Bney-Brak': 'https://myvisit.com/#!/home/service/2163'},
-#    {'Rosh-Ha-Ain': 'https://myvisit.com/#!/home/service/2167'},
-#   {'RAmat-Gan-Givataim': 'https://myvisit.com/#!/home/service/2097'},
-    {'Tel-Aviv': 'https://myvisit.com/#!/home/service/2099'},
-    {'Yaffo': 'https://myvisit.com/#!/home/service/2165'},
-    {'Um-El-Fahm': 'https://myvisit.com/#!/home/service/8977'},
-    {'Holon': 'https://myvisit.com/#!/home/service/2153'},
-    {'Rishon-Le-Tsion': 'https://myvisit.com/#!/home/service/2241'},
+    # {'Petakh-Tikva': 'https://myvisit.com/#!/home/service/2113'},
+    # {'Bney-Brak': 'https://myvisit.com/#!/home/service/2163'},
+    #    {'Rosh-Ha-Ain': 'https://myvisit.com/#!/home/service/2167'},
+    #   {'RAmat-Gan-Givataim': 'https://myvisit.com/#!/home/service/2097'},
+    # {'Tel-Aviv': 'https://myvisit.com/#!/home/service/2099'},
+    # {'Yaffo': 'https://myvisit.com/#!/home/service/2165'},
+    # {'Um-El-Fahm': 'https://myvisit.com/#!/home/service/8977'},
+    # {'Holon': 'https://myvisit.com/#!/home/service/2153'},
+    # {'Rishon-Le-Tsion': 'https://myvisit.com/#!/home/service/2241'},
 ]
 
 
@@ -110,6 +112,14 @@ def parce():
     options.add_argument('start-maximized')
     options.add_argument('--disable-blink-features=AutomationControlled')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    stealth(driver,
+            languages=["en-US", "en"],
+            vendor="Google Inc.",
+            platform="Win32",
+            webgl_vendor="Intel Inc.",
+            renderer="Intel Iris OpenGL Engine",
+            fix_hairline=True,
+            )
     driver.get(MAIN_URL)
     delay()
     tel_input = WebDriverWait(driver, timeout=TIMEOUT).until(lambda d: d.find_element(By.ID, 'mobileNumber'))
