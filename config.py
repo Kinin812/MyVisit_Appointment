@@ -15,9 +15,10 @@ TEUDATS = {
     'Nina': '347812687',
 }
 
+Person = 'Nina'
 DOC_CHOOZE = DOC_LINK_ID['Zeut']  # Document chooze
-MY_TEL = TELEPHONS['Kirill']  # Telephone number
-MY_TZ = TEUDATS['Kirill']  # Teudat Zeut number
+MY_TEL = TELEPHONS[Person]  # Telephone number
+MY_TZ = TEUDATS[Person]  # Teudat Zeut number
 MAX_DATA = dt(2023, 10, 30, 0, 0, 0)
 MAIN_URL = 'https://myvisit.com/#!/home/signin/'
 TIMEOUT = 300  # Seconds
