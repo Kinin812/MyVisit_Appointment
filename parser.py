@@ -12,36 +12,10 @@ from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
-
-DOC_LINK_ID = {
-    'Zeut': '6f2ffb58-b985-436c-a3f7-f5913299fa30',
-    'Maavar': '36aac445-7d4d-4088-baa2-43658d2ca803',
-}
-DOC_CHOOZE = DOC_LINK_ID['Zeut']  # Document chooze
-MY_TEL = '0553161687'  # Telephone number
-MY_TZ = '347812679'  # Teudat Zeut number
-MAX_DATA = datetime.datetime(2023, 9, 30, 0, 0, 0)
-MAIN_URL = 'https://myvisit.com/#!/home/signin/'
-TIMEOUT = 300  # Seconds
-INTERVAL = 120  # Minuts
-
-Cities = [
-    #    {'Test': 'https://www.myvisit.com/#!/home/service/2247'},
-    {'Hadera': 'https://myvisit.com/#!/home/service/2144'},
-    {'Netanya': 'https://myvisit.com/#!/home/service/2146'},
-    {'Tayba': 'https://myvisit.com/#!/home/service/2749'},
-    {'Kphar-Saba': 'https://myvisit.com/#!/home/service/2110'},
-    {'Gertsliya': 'https://myvisit.com/#!/home/service/2245'},
-    {'Petakh-Tikva': 'https://myvisit.com/#!/home/service/2113'},
-    {'Bney-Brak': 'https://myvisit.com/#!/home/service/2163'},
-    #     {'Rosh-Ha-Ain': 'https://myvisit.com/#!/home/service/2167'},
-    #     {'RAmat-Gan-Givataim': 'https://myvisit.com/#!/home/service/2097'},
-    #     {'Tel-Aviv': 'https://myvisit.com/#!/home/service/2099'},
-    #     {'Yaffo': 'https://myvisit.com/#!/home/service/2165'},
-    #     {'Um-El-Fahm': 'https://myvisit.com/#!/home/service/8977'},
-    #     {'Holon': 'https://myvisit.com/#!/home/service/2153'},
-    #     {'Rishon-Le-Tsion': 'https://myvisit.com/#!/home/service/2241'},
-]
+from config import (
+    DOC_CHOOZE, MY_TEL, MY_TZ, MAX_DATA,
+    MAIN_URL, TIMEOUT, INTERVAL, Cities
+)
 
 
 def delay():
@@ -65,7 +39,7 @@ class City:
             delay()
             visit_time = self.driver.find_elements(By.CSS_SELECTOR, 'div.picker-scroll-container')[2] \
                 .find_elements(By.CSS_SELECTOR, 'li.picker-scroll-item')
-            for time in visit_time[1:]:
+            for time in visit_time:
                 t = time.find_element(By.CSS_SELECTOR, 'button.TimeButton').text
                 r = dt.strptime(f'{" ".join(self.date_clean)} {t}', '%b %d %Y %I:%M %p')
                 self.diff_minuts = (r - dt.now()).total_seconds() // 60
@@ -73,21 +47,18 @@ class City:
                     time.click()
                     delay()
                     slot = self.driver.find_element(By.CSS_SELECTOR, 'button.createApp')
-                    slot.click()  # Todo
-                    sleep(200)
-                    if not self.driver.find_element(ec.visibility_of_element_located('formErrorMessage')):
-                        return r
-                    else:
-                        return 'Что-то не так... не забронировать время'
+                    slot.click()
+                    return r
         except Exception:
             return 'Время не найдено'
 
     def find_date(self):
         try:
-            date_source = self.driver.find_element(By.CSS_SELECTOR, 'div.picker-scroll-container') \
+            date_source = self.driver.find_elements(By.CSS_SELECTOR, 'div.picker-scroll-container') \
                 .find_element(By.CSS_SELECTOR, 'li.picker-scroll-item') \
                 .find_element(By.CLASS_NAME, 'calendarDay') \
                 .find_elements(By.CSS_SELECTOR, 'div.ng-binding')
+
             for elem in date_source[1:3]:
                 self.date_add(elem.text)
             self.date_add('2023')
