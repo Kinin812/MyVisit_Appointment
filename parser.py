@@ -54,11 +54,10 @@ class City:
 
     def find_date(self):
         try:
-            date_source = self.driver.find_elements(By.CSS_SELECTOR, 'div.picker-scroll-container') \
+            date_source = self.driver.find_element(By.CSS_SELECTOR, 'div.picker-scroll-container') \
                 .find_element(By.CSS_SELECTOR, 'li.picker-scroll-item') \
                 .find_element(By.CLASS_NAME, 'calendarDay') \
                 .find_elements(By.CSS_SELECTOR, 'div.ng-binding')
-
             for elem in date_source[1:3]:
                 self.date_add(elem.text)
             self.date_add('2023')
@@ -81,15 +80,14 @@ class City:
 def city_circle(driver):
     x = 1
     while x == 1:
-        for i in Cities:
-            for name, url in i.items():
-                city = City(driver, name, url)
-                f = city.find_date()
-                print(f'{name}: {f}')
-                if type(f) == datetime:
-                    send_message(
-                        f'Поймался слот: {name} - {f}\nОсталось {city.diff_minuts} минут\nwww.MyVisit.com')
-                    x = 2
+        for name, url in Cities.items():
+            city = City(driver, name, url)
+            f = city.find_date()
+            print(f'{name}: {f}')
+            if type(f) == datetime.datetime:
+                send_message(f'Поймался слот: {name} - {f}\nОсталось {city.diff_minuts} минут\nwww.MyVisit.com')
+                break
+        x = 2
     return
 
 
