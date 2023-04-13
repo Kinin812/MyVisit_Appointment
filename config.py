@@ -5,27 +5,21 @@ DOC_LINK_ID = {
     'Maavar': '36aac445-7d4d-4088-baa2-43658d2ca803',
 }
 
-TELEPHONS = {
-    'Kirill': '0553161687',
-    'Nina': '0559578701',
-}
-
-TEUDATS = {
-    'Kirill': '347812679',
-    'Nina': '347812687',
+USERS_DATA = {
+    'Kirill': ['0553161687', '347812679'],
+    'Nina': ['0559578701', '347812687']
 }
 
 Person = 'Kirill'
 DOC_CHOOZE = DOC_LINK_ID['Zeut']  # Document chooze
-MY_TEL = TELEPHONS[Person]  # Telephone number
-MY_TZ = TEUDATS[Person]  # Teudat Zeut number
+MY_TEL = USERS_DATA[Person][0]  # Telephone number
+MY_TZ = USERS_DATA[Person][1]  # Teudat Zeut number
 MAX_DATA = dt(2023, 10, 30, 0, 0, 0)
 MAIN_URL = 'https://myvisit.com/#!/home/signin/'
 TIMEOUT = 300  # Seconds
 INTERVAL = 120  # Minuts
 
 Cities = {
-    #    'Test': 'https://www.myvisit.com/#!/home/service/2247',
     'Hadera': 'https://myvisit.com/#!/home/service/2144',
     'Netanya': 'https://myvisit.com/#!/home/service/2146',
     'Tayba': 'https://myvisit.com/#!/home/service/2749',
