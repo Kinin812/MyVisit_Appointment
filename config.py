@@ -10,13 +10,13 @@ USERS_DATA = {
     'Nina': ['0559578701', '347812687']
 }
 
-Person = 'Kirill'
+Person = 'Nina'
 DOC_CHOOZE = DOC_LINK_ID['Zeut']  # Document chooze
 MY_TEL = USERS_DATA[Person][0]  # Telephone number
 MY_TZ = USERS_DATA[Person][1]  # Teudat Zeut number
-MAX_DATA = dt(2023, 10, 30, 0, 0, 0)
+MAX_DATA = dt(2023, 5, 10, 0, 0, 0)
 MAIN_URL = 'https://myvisit.com/#!/home/signin/'
-TIMEOUT = 300  # Seconds
+TIMEOUT = 30  # Seconds
 INTERVAL = 120  # Minuts
 
 Cities = {

@@ -94,11 +94,9 @@ def city_circle(driver):
 
 
 def incert_and_push(driver, value, doc_value, batton_val):
-    elem_input = WebDriverWait(driver, timeout=TIMEOUT).until(lambda d: d.find_element(By.ID, value))
+    elem_input = WebDriverWait(driver, timeout=TIMEOUT).until(ec.presence_of_element_located((By.ID, value)))
     elem_input.send_keys(doc_value)
-    button = WebDriverWait(driver, timeout=TIMEOUT).until(
-        lambda d: d.find_element(By.CLASS_NAME, batton_val)
-    )
+    button = WebDriverWait(driver, timeout=TIMEOUT).until(ec.presence_of_element_located((By.CLASS_NAME, batton_val)))
     button.click()
     return
 
