@@ -41,11 +41,8 @@ class City:
                 .find_elements(By.CSS_SELECTOR, 'li.picker-scroll-item')
             for time in visit_time:
                 t = time.find_element(By.CSS_SELECTOR, 'button.TimeButton').text
-                print('t ', t)
                 r = dt.strptime(f'{" ".join(self.date_clean)} {t}', '%b %d %Y %I:%M %p')
-                print('r ', r)
                 self.diff_minuts = (r - dt.now()).total_seconds() // 60
-                print('diff ', self.diff_minuts)
                 if self.diff_minuts >= INTERVAL:
                     time.click()
                     slot = WebDriverWait(self.driver, timeout=TIMEOUT) \
