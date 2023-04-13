@@ -16,7 +16,7 @@ MY_TEL = USERS_DATA[Person][0]  # Telephone number
 MY_TZ = USERS_DATA[Person][1]  # Teudat Zeut number
 MAX_DATA = dt(2023, 5, 10, 0, 0, 0)
 MAIN_URL = 'https://myvisit.com/#!/home/signin/'
-TIMEOUT = 30  # Seconds
+TIMEOUT = 60  # Seconds
 INTERVAL = 120  # Minuts
 
 Cities = {

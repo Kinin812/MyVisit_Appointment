@@ -30,13 +30,14 @@ class City:
         self.name = name
         self.date_clean = []
         self.driver.get(url)
-        elem = WebDriverWait(self.driver, timeout=TIMEOUT).until(lambda d: d.find_element(By.ID, DOC_CHOOZE))
+        delay()
+        elem = WebDriverWait(self.driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.ID, DOC_CHOOZE)))
         elem.click()
         delay()
 
     def find_time(self):
         try:
-            visit_time = self.driver.find_elements(By.CSS_SELECTOR, 'div.picker-scroll-container')[2]\
+            visit_time = self.driver.find_elements(By.CSS_SELECTOR, 'div.picker-scroll-container')[2] \
                 .find_elements(By.CSS_SELECTOR, 'li.picker-scroll-item')
             for time in visit_time:
                 t = time.find_element(By.CSS_SELECTOR, 'button.TimeButton').text
@@ -47,14 +48,15 @@ class City:
                 print('diff ', self.diff_minuts)
                 if self.diff_minuts >= INTERVAL:
                     time.click()
-                    slot = WebDriverWait(self.driver, timeout=TIMEOUT)\
-                        .until(ec.presence_of_element_located((By.CSS_SELECTOR, 'button.createApp')))
+                    slot = WebDriverWait(self.driver, timeout=TIMEOUT) \
+                        .until(ec.visibility_of_element_located((By.CSS_SELECTOR, 'button.createApp')))
                     slot.click()
                     return r
         except Exception:
             return 'Время не найдено'
 
     def find_date(self):
+        delay()
         try:
             date_source = self.driver.find_element(By.CSS_SELECTOR, 'div.picker-scroll-container') \
                 .find_element(By.CSS_SELECTOR, 'li.picker-scroll-item') \
@@ -94,9 +96,9 @@ def city_circle(driver):
 
 
 def incert_and_push(driver, value, doc_value, batton_val):
-    elem_input = WebDriverWait(driver, timeout=TIMEOUT).until(ec.presence_of_element_located((By.ID, value)))
+    elem_input = WebDriverWait(driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.ID, value)))
     elem_input.send_keys(doc_value)
-    button = WebDriverWait(driver, timeout=TIMEOUT).until(ec.presence_of_element_located((By.CLASS_NAME, batton_val)))
+    button = WebDriverWait(driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.CLASS_NAME, batton_val)))
     button.click()
     return
 
@@ -108,19 +110,20 @@ def parce():
     options.add_argument('--disable-blink-features=AutomationControlled')
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.get(MAIN_URL)
-    tel_input = WebDriverWait(driver, timeout=TIMEOUT).until(ec.presence_of_element_located((By.ID, 'mobileNumber')))
+    delay()
+    tel_input = WebDriverWait(driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.ID, 'mobileNumber')))
     tel_input.send_keys(MY_TEL)
     capcha_input = WebDriverWait(driver, timeout=TIMEOUT).until(
         ec.presence_of_element_located((By.NAME, 'userCaptchaInput'))
     )
     capcha_input.send_keys(Keys.NULL)
     WebDriverWait(driver, timeout=60).until(ec.title_contains('myVisit - instant appointment scheduling'))
+    #    delay()
+    chooze_provider = WebDriverWait(driver, timeout=TIMEOUT) \
+        .until(ec.visibility_of_element_located((By.ID, "appContainer")))
+    chooze_provider = chooze_provider.find_element(By.XPATH, '//*[@id="providers-tab"]/div[3]/div/div[2]')
     delay()
-    chooze_provider = driver.find_element(By.ID, "appContainer")\
-        .find_element(By.XPATH, '//*[@id="providers-tab"]/div[3]/div/div[2]').find_element(
-        By.XPATH,
-        '//*[@id="mCSB_4_container"]/div/div[1]/ul/li[1]'
-    )
+    chooze_provider = chooze_provider.find_element(By.XPATH, '//*[@id="mCSB_4_container"]/div/div[1]/ul/li[1]')
     chooze_provider.click()
     incert_and_push(driver, 'ID_KEYPAD', MY_TZ, 'exteranl-buttons-buttons')
     incert_and_push(driver, 'PHONE_KEYPAD', MY_TEL, 'exteranl-buttons-buttons')
