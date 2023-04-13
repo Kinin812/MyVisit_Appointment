@@ -15,7 +15,7 @@ TEUDATS = {
     'Nina': '347812687',
 }
 
-Person = 'Nina'
+Person = 'Kirill'
 DOC_CHOOZE = DOC_LINK_ID['Zeut']  # Document chooze
 MY_TEL = TELEPHONS[Person]  # Telephone number
 MY_TZ = TEUDATS[Person]  # Teudat Zeut number
