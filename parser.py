@@ -32,6 +32,8 @@ class City:
         self.driver.get(url)
         delay()
         elem = WebDriverWait(self.driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.ID, DOC_CHOOZE)))
+        delay()
+        delay()
         elem.click()
         delay()
 
@@ -86,7 +88,7 @@ def city_circle(driver):
             f = city.find_date()
             print(f'{name}: {f}')
             if type(f) == datetime.datetime:
-                send_message(f'Поймался слот: {name} - {f}\nОсталось {city.diff_minuts} минут\nwww.MyVisit.com')
+                send_message(f'Поймался слот на {DOC_CHOOZE}:\n{name} - {f}\nОсталось {city.diff_minuts} минут\nwww.MyVisit.com')
                 x = 2
                 break
     return
