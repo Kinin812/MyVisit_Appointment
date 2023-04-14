@@ -88,7 +88,7 @@ def city_circle(driver):
             f = city.find_date()
             print(f'{name}: {f}')
             if type(f) == datetime.datetime:
-                send_message(f'Поймался слот на {DOC_CHOOZE}:\n{name} - {f}\nОсталось {city.diff_minuts} минут\nwww.MyVisit.com')
+                send_message(f'Поймался слот на {DOC_CHOOZE[1]}:\n{name} - {f}\nОсталось {city.diff_minuts} минут\nwww.MyVisit.com')
                 x = 2
                 break
     return

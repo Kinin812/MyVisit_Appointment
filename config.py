@@ -1,8 +1,8 @@
 from datetime import datetime as dt
 
 DOC_LINK_ID = {
-    'Zeut': '6f2ffb58-b985-436c-a3f7-f5913299fa30',
-    'Maavar': '36aac445-7d4d-4088-baa2-43658d2ca803',
+    'Zeut': ['6f2ffb58-b985-436c-a3f7-f5913299fa30', 'Zeut'],
+    'Maavar': ['36aac445-7d4d-4088-baa2-43658d2ca803', 'Maavar'],
 }
 
 USERS_DATA = {
@@ -11,7 +11,7 @@ USERS_DATA = {
 }
 
 Person = 'Nina'
-DOC_CHOOZE = DOC_LINK_ID['Maavar']  # Document chooze
+DOC_CHOOZE = DOC_LINK_ID['Maavar'][0]  # Document chooze
 MY_TEL = USERS_DATA[Person][0]  # Telephone number
 MY_TZ = USERS_DATA[Person][1]  # Teudat Zeut number
 MAX_DATA = dt(2023, 5, 10, 0, 0, 0)
@@ -21,12 +21,12 @@ INTERVAL = 120  # Minuts
 
 Cities = {
     'Hadera': 'https://myvisit.com/#!/home/service/2144',
-    'Netanya': 'https://myvisit.com/#!/home/service/2146',
-    'Tayba': 'https://myvisit.com/#!/home/service/2749',
-    'Kphar-Saba': 'https://myvisit.com/#!/home/service/2110',
-    'Gertsliya': 'https://myvisit.com/#!/home/service/2245',
-    'Petakh-Tikva': 'https://myvisit.com/#!/home/service/2113',
-    'Bney-Brak': 'https://myvisit.com/#!/home/service/2163',
+    # 'Netanya': 'https://myvisit.com/#!/home/service/2146',
+    # 'Tayba': 'https://myvisit.com/#!/home/service/2749',
+    # 'Kphar-Saba': 'https://myvisit.com/#!/home/service/2110',
+    # 'Gertsliya': 'https://myvisit.com/#!/home/service/2245',
+    # 'Petakh-Tikva': 'https://myvisit.com/#!/home/service/2113',
+    # 'Bney-Brak': 'https://myvisit.com/#!/home/service/2163',
     #     'Rosh-Ha-Ain': 'https://myvisit.com/#!/home/service/2167',
     #     'RAmat-Gan-Givataim': 'https://myvisit.com/#!/home/service/2097',
     #     'Tel-Aviv': 'https://myvisit.com/#!/home/service/2099',
