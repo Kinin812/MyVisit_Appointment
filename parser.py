@@ -30,7 +30,6 @@ class City:
         self.name = name
         self.date_clean = []
         self.driver.get(url)
-#        delay()
         elem = WebDriverWait(self.driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.ID, DOC_CHOOZE)))
         elem.click()
 
@@ -52,7 +51,6 @@ class City:
             return 'Время не найдено'
 
     def find_date(self):
-#        delay()
         try:
             date_source = WebDriverWait(self.driver, timeout=TIMEOUT).until(ec.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.picker-scroll-container')))
             d = date_source.find_element(By.CSS_SELECTOR, 'li.picker-scroll-item').find_element(By.CLASS_NAME, 'calendarDay').find_elements(By.CSS_SELECTOR, 'div.ng-binding')
@@ -81,7 +79,7 @@ def city_circle(driver):
         for name, url in Cities.items():
             city = City(driver, name, url)
             f = city.find_date()
-            print(f'{dt.now().strftime("%H:%M:%S")} - {name}: {f}')
+            print(f'{dt.now().strftime("%d/%m/%Y, %H:%M:%S")} - {name}: {f}')
             if type(f) == datetime.datetime:
                 send_message(f'{dt.now()} - Поймался слот на {DOC_CHOOZE[1]}:\n{name} - {f}\nОсталось {city.diff_minuts} минут\nwww.MyVisit.com')
                 x = 2
