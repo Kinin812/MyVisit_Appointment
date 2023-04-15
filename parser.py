@@ -19,7 +19,7 @@ from config import (
 
 
 def delay():
-    sleep(randint(5, 7))
+    sleep(randint(2, 4))
 
 
 class City:
@@ -30,10 +30,9 @@ class City:
         self.name = name
         self.date_clean = []
         self.driver.get(url)
-        delay()
+#        delay()
         elem = WebDriverWait(self.driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.ID, DOC_CHOOZE)))
         elem.click()
-        delay()
 
     def find_time(self):
         try:
