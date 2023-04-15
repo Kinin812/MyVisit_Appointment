@@ -10,7 +10,7 @@ USERS_DATA = {
     'Nina': ['0559578701', '347812687']
 }
 
-Person = 'Nina'
+Person = 'Kirill'
 DOC_CHOOZE = DOC_LINK_ID['Maavar'][0]  # Document chooze
 MY_TEL = USERS_DATA[Person][0]  # Telephone number
 MY_TZ = USERS_DATA[Person][1]  # Teudat Zeut number
@@ -21,10 +21,10 @@ INTERVAL = 120  # Minuts
 
 Cities = {
     'Hadera': 'https://myvisit.com/#!/home/service/2144',
-    # 'Netanya': 'https://myvisit.com/#!/home/service/2146',
-    # 'Tayba': 'https://myvisit.com/#!/home/service/2749',
-    # 'Kphar-Saba': 'https://myvisit.com/#!/home/service/2110',
-    # 'Gertsliya': 'https://myvisit.com/#!/home/service/2245',
+    'Netanya': 'https://myvisit.com/#!/home/service/2146',
+    'Tayba': 'https://myvisit.com/#!/home/service/2749',
+    'Kphar-Saba': 'https://myvisit.com/#!/home/service/2110',
+    'Gertsliya': 'https://myvisit.com/#!/home/service/2245',
     # 'Petakh-Tikva': 'https://myvisit.com/#!/home/service/2113',
     # 'Bney-Brak': 'https://myvisit.com/#!/home/service/2163',
     #     'Rosh-Ha-Ain': 'https://myvisit.com/#!/home/service/2167',
