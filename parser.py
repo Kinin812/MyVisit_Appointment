@@ -30,7 +30,8 @@ class City:
         self.name = name
         self.date_clean = []
         self.driver.get(url)
-        elem = WebDriverWait(self.driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.ID, DOC_CHOOZE)))
+        self.wait = WebDriverWait(self.driver, timeout=TIMEOUT)
+        elem = self.wait.until(ec.visibility_of_element_located((By.ID, DOC_CHOOZE)))
         elem.click()
 
     def find_time(self):
@@ -43,8 +44,7 @@ class City:
                 self.diff_minuts = (r - dt.now()).total_seconds() // 60
                 if self.diff_minuts >= INTERVAL:
                     time.click()
-                    slot = WebDriverWait(self.driver, timeout=TIMEOUT) \
-                        .until(ec.visibility_of_element_located((By.CSS_SELECTOR, 'button.createApp')))
+                    slot = self.wait.until(ec.visibility_of_element_located((By.CSS_SELECTOR, 'button.createApp')))
                     slot.click()
                     return r
         except Exception:
@@ -52,8 +52,14 @@ class City:
 
     def find_date(self):
         try:
-            date_source = WebDriverWait(self.driver, timeout=TIMEOUT).until(ec.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.picker-scroll-container')))
-            d = date_source.find_element(By.CSS_SELECTOR, 'li.picker-scroll-item').find_element(By.CLASS_NAME, 'calendarDay').find_elements(By.CSS_SELECTOR, 'div.ng-binding')
+            date_source = self.wait.until(
+                ec.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.picker-scroll-container'))
+            )
+            d = (
+                date_source.find_element(By.CSS_SELECTOR, 'li.picker-scroll-item')
+                .find_element(By.CLASS_NAME, 'calendarDay')
+                .find_elements(By.CSS_SELECTOR, 'div.ng-binding')
+            )
             for elem in d[1:3]:
                 self.date_add(elem.text)
             self.date_add('2023')
@@ -81,7 +87,9 @@ def city_circle(driver):
             f = city.find_date()
             print(f'{dt.now().strftime("%d/%m/%Y, %H:%M:%S")} - {name}: {f}')
             if type(f) == datetime.datetime:
-                send_message(f'{dt.now()} - Поймался слот на {DOC_CHOOZE[1]}:\n{name} - {f}\nОсталось {city.diff_minuts} минут\nwww.MyVisit.com')
+                send_message(
+                    f'{dt.now()} - Поймался слот на {DOC_CHOOZE[1]}'
+                    f':\n{name} - {f}\nОсталось {city.diff_minuts} минут\nwww.MyVisit.com')
                 x = 2
                 break
     return
