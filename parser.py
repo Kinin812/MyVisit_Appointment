@@ -14,7 +14,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 from config import (
     DOC_CHOOZE, MY_TEL, MY_TZ, MAX_DATA,
-    MAIN_URL, TIMEOUT, INTERVAL, Cities
+    MAIN_URL, TIMEOUT, INTERVAL, Cities, DOC
 )
 
 
@@ -52,15 +52,13 @@ class City:
 
     def find_date(self):
         try:
-            date_source = self.wait.until(
-                ec.presence_of_all_elements_located((By.CSS_SELECTOR, 'div.picker-scroll-container'))
-            )
-            d = (
-                date_source.find_element(By.CSS_SELECTOR, 'li.picker-scroll-item')
-                .find_element(By.CLASS_NAME, 'calendarDay')
-                .find_elements(By.CSS_SELECTOR, 'div.ng-binding')
-            )
-            for elem in d[1:3]:
+            delay()
+            delay()
+            date_source = (self.driver.find_elements(By.CSS_SELECTOR, 'div.picker-scroll-container')[0]
+                           .find_element(By.CSS_SELECTOR, 'li.picker-scroll-item')
+                           .find_element(By.CLASS_NAME, 'calendarDay')
+                           .find_elements(By.CSS_SELECTOR, 'div.ng-binding'))
+            for elem in date_source[1:3]:
                 self.date_add(elem.text)
             self.date_add('2023')
             self.date_clean[0], self.date_clean[1] = self.date_clean[1], self.date_clean[0]  # Дата в формате списка
@@ -83,12 +81,13 @@ def city_circle(driver):
     x = 1
     while x == 1:
         for name, url in Cities.items():
+            delay()
             city = City(driver, name, url)
             f = city.find_date()
-            print(f'{dt.now().strftime("%d/%m/%Y, %H:%M:%S")} - {name}: {f}')
+            print(f'{dt.now().strftime("%d/%m/%Y %H:%M:%S")} - {name}: {f}')
             if type(f) == datetime.datetime:
                 send_message(
-                    f'{dt.now()} - Поймался слот на {DOC_CHOOZE[1]}'
+                    f'{dt.now()} - Поймался слот на {DOC}'
                     f':\n{name} - {f}\nОсталось {city.diff_minuts} минут\nwww.MyVisit.com')
                 x = 2
                 break
@@ -112,6 +111,7 @@ def parce():
     driver.get(MAIN_URL)
     delay()
     tel_input = WebDriverWait(driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.ID, 'mobileNumber')))
+    delay()
     tel_input.send_keys(MY_TEL)
     capcha_input = WebDriverWait(driver, timeout=TIMEOUT).until(
         ec.presence_of_element_located((By.NAME, 'userCaptchaInput'))

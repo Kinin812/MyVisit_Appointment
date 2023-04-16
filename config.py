@@ -6,32 +6,35 @@ DOC_LINK_ID = {
 }
 
 USERS_DATA = {
-    'Kirill': ['0553161687', '347812679'],
+    'Kirill': ['0553161687', '347812679'], # exemple 'Ivan': ['055xxxxxxx', 'TZ number'],
     'Nina': ['0559578701', '347812687']
 }
 
-Person = 'Kirill'
-DOC_CHOOZE = DOC_LINK_ID['Maavar'][0]  # Document chooze
+Person = 'Nina'
+DOC = 'Maavar'
+DOC_CHOOZE = DOC_LINK_ID[DOC][0]  # Appointment document chooze
 MY_TEL = USERS_DATA[Person][0]  # Telephone number
 MY_TZ = USERS_DATA[Person][1]  # Teudat Zeut number
-MAX_DATA = dt(2023, 5, 10, 0, 0, 0)
+MAX_DATA = dt(2023, 5, 25, 0, 0, 0)
 MAIN_URL = 'https://myvisit.com/#!/home/signin/'
-TIMEOUT = 60  # Seconds
-INTERVAL = 120  # Minuts
+TIMEOUT = 120  # Seconds
+INTERVAL = 120  # Minuts between slot and current time
 
 Cities = {
-    'Hadera': 'https://myvisit.com/#!/home/service/2144',
+    # 'Hadera': 'https://myvisit.com/#!/home/service/2144',
+    'Sderot': 'https://myvisit.com/#!/home/service/3078',
     'Netanya': 'https://myvisit.com/#!/home/service/2146',
     'Tayba': 'https://myvisit.com/#!/home/service/2749',
     'Kphar-Saba': 'https://myvisit.com/#!/home/service/2110',
     'Gertsliya': 'https://myvisit.com/#!/home/service/2245',
-    # 'Petakh-Tikva': 'https://myvisit.com/#!/home/service/2113',
-    # 'Bney-Brak': 'https://myvisit.com/#!/home/service/2163',
-    #     'Rosh-Ha-Ain': 'https://myvisit.com/#!/home/service/2167',
-    #     'RAmat-Gan-Givataim': 'https://myvisit.com/#!/home/service/2097',
-    #     'Tel-Aviv': 'https://myvisit.com/#!/home/service/2099',
-    #     'Yaffo': 'https://myvisit.com/#!/home/service/2165',
-    #     'Um-El-Fahm': 'https://myvisit.com/#!/home/service/8977',
-    #     'Holon': 'https://myvisit.com/#!/home/service/2153',
-    #     'Rishon-Le-Tsion': 'https://myvisit.com/#!/home/service/2241',
+    'Petakh-Tikva': 'https://myvisit.com/#!/home/service/2113',
+    'Bney-Brak': 'https://myvisit.com/#!/home/service/2163',
+    'Rosh-Ha-Ain': 'https://myvisit.com/#!/home/service/2167',
+    # 'RAmat-Gan-Givataim': 'https://myvisit.com/#!/home/service/2097',
+    'Tel-Aviv': 'https://myvisit.com/#!/home/service/2099',
+    'Yaffo': 'https://myvisit.com/#!/home/service/2165',
+    'Um-El-Fahm': 'https://myvisit.com/#!/home/service/8977',
+    'Holon': 'https://myvisit.com/#!/home/service/2153',
+    'Rishon-Le-Tsion': 'https://myvisit.com/#!/home/service/2241',
+    'Hayfa': 'https://myvisit.com/#!/home/service/2219',
 }
