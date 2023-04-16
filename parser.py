@@ -84,7 +84,7 @@ def city_circle(driver):
             delay()
             city = City(driver, name, url)
             f = city.find_date()
-            print(f'{dt.now().strftime("%d/%m/%Y %H:%M:%S")} - {name}: {f}')
+            print(f'{dt.now().strftime("%d/%m/%Y"): <10} | {dt.now().strftime("%H:%M:%S"): <9}| {name: <15} | {f}')
             if type(f) == datetime.datetime:
                 send_message(
                     f'{dt.now()} - Поймался слот на {DOC}'
