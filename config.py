@@ -10,7 +10,7 @@ USERS_DATA = {
     'Nina': ['0559578701', '347812687']
 }
 
-Person = 'Kirill'
+Person = 'Nina'
 DOC = 'Maavar'
 DOC_CHOOZE = DOC_LINK_ID[DOC][0]  # Appointment document chooze
 MY_TEL = USERS_DATA[Person][0]  # Telephone number
