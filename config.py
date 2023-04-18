@@ -6,11 +6,11 @@ DOC_LINK_ID = {
 }
 
 USERS_DATA = {
-    'Ivan': ['0551232323', '347812111'], # exemple 'Ivan': ['055xxxxxxx', 'TZ number'],
-    'Maria': ['0551323232', '347812222']
+    'Name1': ['055xxxxxxx', '347xxxxxx'], # exemple 'Ivan': ['055xxxxxxx', 'TZ number'],
+    'Name2': ['055xxxxxxx', '347xxxxxx']
 }
 
-Person = 'Ivan'  # Choice from USERS_DATA
+Person = 'Name1'  # Choice from USERS_DATA
 DOC = 'Zeut'  # Choice from DOC_LINK_ID
 DOC_CHOOZE = DOC_LINK_ID[DOC][0]  # Appointment document chooze
 MY_TEL = USERS_DATA[Person][0]  # Telephone number
