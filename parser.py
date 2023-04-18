@@ -35,6 +35,7 @@ class City:
         elem.click()
 
     def find_time(self):
+        """Searches for the nearest time slot of the selected date, checks for the INTERVAL condition"""
         try:
             visit_time = self.driver.find_elements(By.CSS_SELECTOR, 'div.picker-scroll-container')[2] \
                 .find_elements(By.CSS_SELECTOR, 'li.picker-scroll-item')
@@ -48,29 +49,33 @@ class City:
                     slot.click()
                     return r
         except Exception:
-            return 'Время не найдено'
+            return 'Time not found'
 
     def find_date(self):
+        """Searches for an available date that satisfies the conditions"""
         try:
             delay()
-            delay()
-            date_source = (self.driver.find_elements(By.CSS_SELECTOR, 'div.picker-scroll-container')[0]
-                           .find_element(By.CSS_SELECTOR, 'li.picker-scroll-item')
-                           .find_element(By.CLASS_NAME, 'calendarDay')
-                           .find_elements(By.CSS_SELECTOR, 'div.ng-binding'))
+            #            delay()
+            d1 = self.wait.until(
+                ec.visibility_of_element_located((By.CSS_SELECTOR, 'div.picker-scroll-container'))
+            )
+            d2 = d1.find_element(By.CSS_SELECTOR, 'li.picker-scroll-item')
+            d3 = d2.find_element(By.CLASS_NAME, 'calendarDay')
+            date_source = d3.find_elements(By.CSS_SELECTOR, 'div.ng-binding')
+
             for elem in date_source[1:3]:
                 self.date_add(elem.text)
             self.date_add('2023')
-            self.date_clean[0], self.date_clean[1] = self.date_clean[1], self.date_clean[0]  # Дата в формате списка
-            self.date_clean_without_time = ps(" ".join(self.date_clean))  # Дата в формате datetime
+            self.date_clean[0], self.date_clean[1] = self.date_clean[1], self.date_clean[0]
+            self.date_clean_without_time = ps(" ".join(self.date_clean))
             if self.date_clean_without_time <= MAX_DATA:
                 q = self.find_time()
-                if q != 'Время не найдено':
+                if q != 'Time not found':
                     return q
-                return 'Слот есть, но не успеть.'
-            return 'Слоты за пределами интервала.'
+                return 'There is a slot, but not in time.'
+            return 'Slots outside the interval.'
         except Exception:
-            return 'Слоты отсутствуют.'
+            return 'There are no slots.'
 
     def date_add(self, elem):
         self.date_clean.append(elem)
@@ -78,6 +83,7 @@ class City:
 
 
 def city_circle(driver):
+    """Enumerating cities from the dictionary"""
     x = 1
     while x == 1:
         for name, url in Cities.items():
@@ -97,38 +103,46 @@ def city_circle(driver):
 def incert_and_push(driver, value, doc_value, batton_val):
     elem_input = WebDriverWait(driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.ID, value)))
     elem_input.send_keys(doc_value)
-    button = WebDriverWait(driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.CLASS_NAME, batton_val)))
+    button = (WebDriverWait(driver, timeout=TIMEOUT)
+              .until(ec.visibility_of_element_located((By.CLASS_NAME, batton_val))))
     button.click()
     return
 
 
-def parce():
-    options = Options()
-    options.add_experimental_option('prefs', {'intl.accept_languages': 'en,en_US'})
-    options.add_argument('start-maximized')
-    options.add_argument('--disable-blink-features=AutomationControlled')
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
-    driver.get(MAIN_URL)
+def input_tel_capcha(driver):
     delay()
-    tel_input = WebDriverWait(driver, timeout=TIMEOUT).until(ec.visibility_of_element_located((By.ID, 'mobileNumber')))
+    tel_input = (WebDriverWait(driver, timeout=TIMEOUT)
+                 .until(ec.visibility_of_element_located((By.ID, 'mobileNumber'))))
     delay()
     tel_input.send_keys(MY_TEL)
     capcha_input = WebDriverWait(driver, timeout=TIMEOUT).until(
         ec.presence_of_element_located((By.NAME, 'userCaptchaInput'))
     )
     capcha_input.send_keys(Keys.NULL)
+    return
+
+
+def parce():
+    """Driver initialization, authorization on the site"""
+    options = Options()
+    options.add_experimental_option('prefs', {'intl.accept_languages': 'en,en_US'})
+    options.add_argument('start-maximized')
+    options.add_argument('--disable-blink-features=AutomationControlled')
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
+    driver.get(MAIN_URL)
+    input_tel_capcha(driver)
     WebDriverWait(driver, timeout=60).until(ec.title_contains('myVisit - instant appointment scheduling'))
-    #    delay()
-    chooze_provider = WebDriverWait(driver, timeout=TIMEOUT) \
-        .until(ec.visibility_of_element_located((By.ID, "appContainer")))
+    chooze_provider = (WebDriverWait(driver, timeout=TIMEOUT)
+                       .until(ec.visibility_of_element_located((By.ID, "appContainer"))))
     chooze_provider = chooze_provider.find_element(By.XPATH, '//*[@id="providers-tab"]/div[3]/div/div[2]')
     delay()
     chooze_provider = chooze_provider.find_element(By.XPATH, '//*[@id="mCSB_4_container"]/div/div[1]/ul/li[1]')
     chooze_provider.click()
+    input_tel_capcha(driver)  # If you need another authorization
     incert_and_push(driver, 'ID_KEYPAD', MY_TZ, 'exteranl-buttons-buttons')
     incert_and_push(driver, 'PHONE_KEYPAD', MY_TEL, 'exteranl-buttons-buttons')
-    but1 = driver.find_element(By.CLASS_NAME, 'buttons')
-    but1.click()
+    button1 = driver.find_element(By.CLASS_NAME, 'buttons')
+    button1.click()
     city_circle(driver)
     return None
 

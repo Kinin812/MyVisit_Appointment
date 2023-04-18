@@ -10,18 +10,18 @@ USERS_DATA = {
     'Nina': ['0559578701', '347812687']
 }
 
-Person = 'Nina'
-DOC = 'Maavar'
+Person = 'Nina'  # Choice from USERS_DATA
+DOC = 'Zeut'  # Choice from DOC_LINK_ID
 DOC_CHOOZE = DOC_LINK_ID[DOC][0]  # Appointment document chooze
 MY_TEL = USERS_DATA[Person][0]  # Telephone number
 MY_TZ = USERS_DATA[Person][1]  # Teudat Zeut number
-MAX_DATA = dt(2023, 5, 25, 0, 0, 0)
+MAX_DATA = dt(2023, 5, 25, 0, 0, 0)  # Maximum date to search
 MAIN_URL = 'https://myvisit.com/#!/home/signin/'
 TIMEOUT = 120  # Seconds
-INTERVAL = 120  # Minuts between slot and current time
+INTERVAL = 120  # Minuts between slot and current time for search
 
 Cities = {
-    # 'Hadera': 'https://myvisit.com/#!/home/service/2144',
+    'Hadera': 'https://myvisit.com/#!/home/service/2144',
     'Netanya': 'https://myvisit.com/#!/home/service/2146',
     'Tayba': 'https://myvisit.com/#!/home/service/2749',
     'Kphar-Saba': 'https://myvisit.com/#!/home/service/2110',
@@ -35,5 +35,6 @@ Cities = {
     'Um-El-Fahm': 'https://myvisit.com/#!/home/service/8977',
     'Holon': 'https://myvisit.com/#!/home/service/2153',
     'Rishon-Le-Tsion': 'https://myvisit.com/#!/home/service/2241',
-    # 'Hayfa': 'https://myvisit.com/#!/home/service/2219',
+    'Afula': 'https://piba.myvisit.com/#!/home/service/2223',
+    'Hayfa': 'https://myvisit.com/#!/home/service/2219',
 }
