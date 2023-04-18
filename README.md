@@ -34,8 +34,8 @@ pip install -r requirements.txt
 - Fill in the secrets .env the telegram bot settings 
 
 ```python
-API_TOKEN=5184539473:AAGJucddvdfdgnggqEHMTRLu5I6N8
-CHAT_ID=468816489
+API_TOKEN=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+CHAT_ID=xxxxxxxxx
 ```
 
 - Make settings USERS_DATA, Person, DOC, MAX_DATA, TIMEOUT, INTERVAL in config.py
