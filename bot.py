@@ -14,4 +14,4 @@ def send_message(message):
 
 
 if __name__ == '__main__':
-    send_message('kuku')
+    send_message('test')
